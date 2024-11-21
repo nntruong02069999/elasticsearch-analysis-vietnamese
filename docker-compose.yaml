@@ -1,4 +1,4 @@
-version: '3.4'
+version: "3.8"
 
 services:
   elasticsearch:
@@ -17,15 +17,20 @@ services:
         hard: -1
         soft: -1
     environment:
-      ES_JAVA_OPTS: "-Xmx2g -Xms2g"
-      ELASTIC_USERNAME: "elastic"
+      ES_JAVA_OPTS: ${ES_JAVA_OPTS}
+      ELASTIC_USERNAME: ${ELASTIC_USERNAME}
       ELASTIC_PASSWORD: ${ELASTIC_PASSWORD}
       bootstrap.memory_lock: "true"
       discovery.type: "single-node"
       xpack.security.enabled: "true"
     networks:
       - elastic
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
 
 networks:
   elastic:
     driver: bridge
+
+volumes:
+  elasticsearch-data:
